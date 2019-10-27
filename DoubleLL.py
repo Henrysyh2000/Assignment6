@@ -113,7 +113,17 @@ class DoubleLinkedList:
                  False otherwise
         """
         # To do
-        pass
+        if self._size != otherlist._size:
+            return False
+        else:
+            check1 = self._head
+            check2 = otherlist._head
+            for i in range(self._size):
+                check1 = check1._next
+                check2 = check2._next
+                if check1._element != check2._element:
+                    return False
+            return True
         
 
     def feed(self, otherlist, n):
@@ -136,7 +146,17 @@ class DoubleLinkedList:
         """
 
         # To do            
-        pass
+        feed = DoubleLinkedList()
+        for i in range(n):
+            value = otherlist.delete_first()
+            feed.add_last(value)
+        mid = feed._tail._prev
+        mid._next = self._head._next
+        mid._next._prev = mid
+        mid = None
+        self._head = feed._head
+        self._size += n        
+            
 
     def del_anything_occured(self, otherlist):
         """
@@ -157,11 +177,20 @@ class DoubleLinkedList:
         :return: Nothing, modify self DoubleLinkedList in place
         """
         # To do  
-        pass
-
-
-
-
+        def find_node(lst, e):
+            check = lst._head
+            for i in range(lst._size):
+                check = check._next
+                if check._element == e:
+                    return check
+            return None
+        thing = otherlist._head
+        for i in range(otherlist._size):
+            thing = thing._next
+            while find_node(self, thing._element) != None:
+                mid = find_node(self, thing._element)
+                self._delete_node(mid)
+            
 
 def main():
     print("-------------------Testing sameSame---------------------")

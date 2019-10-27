@@ -71,7 +71,12 @@ class SingleLinkedList:
         :return: Any -- the value stored at kth indexed node.
         """
         # To do
-        pass
+        if k + 1 > self._size:
+            raise "Index out of range!"
+        ans = self._head
+        for i in range(k):
+            ans = ans._next
+        return ans._element
 
     def list_reverse(self):
         """
@@ -83,8 +88,12 @@ class SingleLinkedList:
 
         :return: Nothing, modify self in place.
         """
-        # To do   
-        pass
+        # To do
+        mid = self._head
+        for i in range(self._size):
+            index = self._size - 1 - i
+            mid._element = self.__getitem__(index)
+            mid = mid._next
 
     def remove_all_occurance(self, value):
         """
@@ -98,11 +107,27 @@ class SingleLinkedList:
         :return: Nothing, modify self SingleLinkedList in place
         """
         # To do
-        pass
-
-
-
- 
+        if self._size == 0:
+            raise Empty
+        check = self._head
+        while self._size != 0:
+            if check._element == value:
+                self._head = check._next
+                check = self._head
+                self._size -= 1
+            else:
+                break
+        num = 0
+        for i in range(self._size - 1):
+            if check == None:
+                break
+            nex = check._next
+            if nex._element == value:
+                check._next = nex._next
+                num += 1
+            check = check._next         
+        self._size -= num
+            
 def main():
     print("----------------Testing __getitem__------------------")
     l1 = SingleLinkedList()
@@ -140,7 +165,7 @@ def main():
         l1.insert_from_head(i % 2)
     print(l1)  # 1-->0-->1-->0-->1-->0-->1-->0-->1-->0-->None
     l1.remove_all_occurance(0)
-    print(l1, "Expected: 1-->1-->1-->1-->1-->None")
+    print(l1, "\nExpected: 1-->1-->1-->1-->1-->None")
     print()
 
     
