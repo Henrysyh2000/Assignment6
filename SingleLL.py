@@ -90,10 +90,11 @@ class SingleLinkedList:
         """
         # To do
         mid = self._head
-        for i in range(self._size):
-            index = self._size - 1 - i
-            mid._element = self.__getitem__(index)
+        new = SingleLinkedList()
+        for i in range(self._size):            
+            new.insert_from_head(self.__getitem__(i))
             mid = mid._next
+        self._head = new._head
 
     def remove_all_occurance(self, value):
         """
